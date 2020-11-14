@@ -1,3 +1,8 @@
+input.onButtonPressed(Button.A, function () {
+    if (infected != 1) {
+        basic.showString("Met: " + convertToText(met.length))
+    }
+})
 input.onButtonPressed(Button.AB, function () {
     infected = 1
 })
@@ -22,6 +27,15 @@ radio.onReceivedValue(function (name, value) {
                 music.setTempo(80)
                 music.startMelody(music.builtInMelody(Melodies.Funeral), MelodyOptions.Once)
             } else {
+                found = 0
+                for (let Index = 0; Index <= met.length; Index++) {
+                    if (met[Index] == radio.receivedPacket(RadioPacketProperty.SerialNumber)) {
+                        found += 1
+                    }
+                }
+                if (found == 0) {
+                    met.push(radio.receivedPacket(RadioPacketProperty.SerialNumber))
+                }
                 basic.showLeds(`
                     . . . . .
                     # . . . #
@@ -48,7 +62,9 @@ radio.onReceivedValue(function (name, value) {
         }
     }
 })
+let found = 0
 let spread = 0
+let met: number[] = []
 let infected = 0
 radio.setTransmitPower(0)
 radio.setFrequencyBand(0)
