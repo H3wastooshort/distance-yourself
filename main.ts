@@ -1,6 +1,7 @@
 input.onButtonPressed(Button.A, function () {
-    if (infected != 1) {
-        basic.showString("Met: " + convertToText(met.length))
+    basic.showString("Met: " + convertToText(met.length))
+    if (input.buttonIsPressed(Button.A)) {
+        basic.showString(convertToText(met))
     }
 })
 input.onButtonPressed(Button.AB, function () {
